@@ -26,7 +26,7 @@ namespace TinyClothes.Models
         /// Type of clothing (shirt, pants, etc...)
         /// </summary>
         public string Type { get; set; }
-
+         
         /// <summary>
         /// Color of the clothing
         /// </summary>
