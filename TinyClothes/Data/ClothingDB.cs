@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,21 @@ namespace TinyClothes.Data
     /// </summary>
     public static class ClothingDB
     {
-        public static List<Clothing> GetAllClothing()
+        /// <summary>
+        /// Returns a specific page of clothing items sorted by ItemID in ascending order
+        /// </summary>
+        /// <param name="context">The DB context</param>
+        /// <param name="pageNum">The page</param>
+        /// <param name="pageSize">The number of products per page</param>
+        public static async Task<List<Clothing>> GetClothingByPage(StoreContext context, int pageNum, int pageSize)
         {
-            throw new NotImplementedException();
+            // If you wanted page 1, we wouldn't skip any rows, so we must offset by 1
+            const int PageOffset = 1;
+            return await context.Clothing
+                                .Skip(pageSize * (pageNum - PageOffset))
+                                .Take(pageSize)
+                                .OrderBy(c => c.Title)
+                                .ToListAsync();
         }
 
         /// <summary>
@@ -21,7 +34,6 @@ namespace TinyClothes.Data
         /// Return the object with the ID populated
         /// </summary>
         /// <param name="c"></param>
-        /// <returns></returns>
         public static async Task<Clothing> Add(Clothing c, StoreContext context)
         {
             await context.AddAsync(c); // prepares INSERT query
