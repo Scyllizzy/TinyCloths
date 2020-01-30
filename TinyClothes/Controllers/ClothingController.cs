@@ -17,10 +17,23 @@ namespace TinyClothes.Controllers
             _context = context;
         }
 
-        public IActionResult InventoryList()
+        public async Task<IActionResult> InventoryList(int? page)
         {
-            List<Clothing> clothes = new List<Clothing>();
+            const int PageSize = 2;
+            // Null coalescing operator
+            int pageNumber = page ?? 1;
+
+            ViewData["MaxPage"] = await GetMaxPage(PageSize);
+
+            List<Clothing> clothes = await ClothingDB.GetClothingByPage(_context, pageNum: pageNumber, pageSize: PageSize);
             return View(clothes);
+        }
+
+        private async Task<int> GetMaxPage(int PageSize)
+        {
+            int numProducts = await ClothingDB.GetNumClothing(_context);
+            int maxPage = Convert.ToInt32(Math.Ceiling((double)numProducts / PageSize));
+            return maxPage;
         }
 
         [HttpGet]
