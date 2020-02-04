@@ -22,6 +22,7 @@ namespace TinyClothes.Controllers
             const int PageSize = 2;
             // Null coalescing operator
             int pageNumber = page ?? 1;
+            ViewData["CurrentPage"] = pageNumber;
 
             ViewData["MaxPage"] = await GetMaxPage(PageSize);
 

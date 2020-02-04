@@ -81,8 +81,17 @@
 <ul class="pagination">
     @for (int i = 1; i <= (int)ViewData["MaxPage"]; i++)
     {
-        <li class="page-item">
-            <a class="page-link" asp-action="InventoryList" asp-route-page="@i">@i</a>
-        </li>
+        if (i != Convert.ToInt32(ViewData["CurrentPage"]))
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="InventoryList" asp-route-page="@i">@i</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item active">
+                <a class="page-link" href="#">@i</a>
+            </li>
+        }
     }
 </ul>
