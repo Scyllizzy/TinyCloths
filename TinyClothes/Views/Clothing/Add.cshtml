@@ -33,7 +33,17 @@
 
     <input asp-for="Description" placeholder="Description" />
     <span asp-validation-for="Description"></span>
+    <br />
+    <br />
 
     <input type="submit" value="Add Clothing" />
 </form>
 
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    @* These scripts are included using the partial attribute above
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>   
+    *@
+}
