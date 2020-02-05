@@ -2,15 +2,24 @@
     ViewData["Title"] = "Welcome to Tiny Clothes";
 }
 
+<div class="alert alert-warning" role="alert">
+    The products shown on this website do not actually exsist! This is a mock website, meant for learning.
+</div>
+
 <h1>Tiny Clothes</h1>
 <p>Tiny clothes for tiny things, but not babies.</p>
+<br />
+<br />
+<br />
+
+<h2 class="text-center">Featured!</h2>
 
 <div class="card" style="width: 18rem;">
     <img src="~/img/Kitty.jpg" class="card-img-top" alt="Cat wearing cat sweater">
-    <div class="card-body bg-dark">
-        <h5 class="card-title text-light">Kitty Sweater</h5>
-        <p class="card-text text-light">Red kitty sweater with white designs to help keep your kitty warm during winter!</p>
-        <a href="#" class="btn btn-primary text-light">Buy Now!</a>
+    <div class="card-body bg-light">
+        <h5 class="card-title text-dark">Kitty Sweater</h5>
+        <p class="card-text text-dark">Red kitty sweater with white designs to help keep your kitty warm during winter!</p>
+        <a asp-controller="Clothing" asp-action="InventoryList" class="btn btn-primary text-light">Buy Now! <span class="badge badge-light">$9.99</span></a>
     </div>
 </div>
 <br />
