@@ -6,37 +6,38 @@
 <h1>Add new clothing</h1>
 
 <form method="post">
-    <input asp-for="Size" placeholder="Size" />
-    <span asp-validation-for="Size"></span>
-    <br />
-    <br />
 
-    <input asp-for="Type" placeholder="Type" />
-    <span asp-validation-for="Type"></span>
-    <br />
-    <br />
-
-    <input asp-for="Color" placeholder="Color" />
-    <span asp-validation-for="Color"></span>
-    <br />
-    <br />
-
-    <input asp-for="Price" placeholder="Price" />
-    <span asp-validation-for="Price"></span>
-    <br />
-    <br />
-
-    <input asp-for="Title" placeholder="Title" />
+    <input class="form-control form-control-lg" type="text" asp-for="Title" placeholder="Title" />
     <span asp-validation-for="Title"></span>
     <br />
     <br />
 
-    <input asp-for="Description" placeholder="Description" />
+    <input class="form-control form-control-lg" type="text" asp-for="Description" placeholder="Description" />
     <span asp-validation-for="Description"></span>
     <br />
     <br />
 
-    <input type="submit" value="Add Clothing" />
+    <input class="form-control form-control-lg" type="text" asp-for="Price" placeholder="Price" />
+    <span asp-validation-for="Price"></span>
+    <br />
+    <br />
+
+    <input class="form-control form-control-lg" type="text" asp-for="Type" placeholder="Type" />
+    <span asp-validation-for="Type"></span>
+    <br />
+    <br />
+
+    <input class="form-control form-control-lg" type="text" asp-for="Size" placeholder="Size" />
+    <span asp-validation-for="Size"></span>
+    <br />
+    <br />
+
+    <input class="form-control form-control-lg" type="text" asp-for="Color" placeholder="Color" />
+    <span asp-validation-for="Color"></span>
+    <br />
+    <br />
+
+    <input class="btn btn-primary" type="submit" value="Add Clothing" />
 </form>
 
 @section Scripts
