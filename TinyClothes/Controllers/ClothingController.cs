@@ -59,5 +59,12 @@ namespace TinyClothes.Controllers
                 return View(c);
             }
         }
+
+        public async Task<IActionResult> Edit(int ID)
+        {
+            Clothing c = await ClothingDB.GetClothingByID(ID, _context);
+
+            return View(c);
+        }
     }
 }
