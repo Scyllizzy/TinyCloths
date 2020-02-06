@@ -1,3 +1,4 @@
+![.NET Core](https://github.com/Scyllizzy/TinyCloths/workflows/.NET%20Core/badge.svg)
 # TinyCloths
 Tiny Clothes is an in class website built using ASP.NET Core MVC with CRUD Functionality. 
 This is mock website for selling tiny clothes for pets and stuffed animals.
