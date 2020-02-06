@@ -49,5 +49,17 @@ namespace TinyClothes.Data
         {
             return await context.Clothing.CountAsync();
         }
+
+        /// <summary>
+        /// Returns a single Clothing object by ClothingID or null if there are no matches
+        /// </summary>
+        /// <param name="ID">The ID of the clothing that is to be returned</param>
+        /// <param name="context">DB context</param>
+        public static async Task<Clothing> GetClothingByID(int ID, StoreContext context)
+        {
+            return await (from clothing in context.Clothing
+                          where clothing.ItemID == ID
+                          select clothing).SingleOrDefaultAsync();
+        }
     }
 }
