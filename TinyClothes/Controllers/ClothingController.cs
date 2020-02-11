@@ -51,7 +51,7 @@ namespace TinyClothes.Controllers
                 await ClothingDB.Add(c, _context);
                 // Temp data lasts for one redirect
                 TempData["Message"] = $"{c.Title} added successfully";
-                return RedirectToAction("InventoryList");
+                return RedirectToAction(nameof(InventoryList));
             }
             else
             {
@@ -85,6 +85,33 @@ namespace TinyClothes.Controllers
                 return View(c);
             }
             return View(c);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int ID)
+        {
+            Clothing c = await ClothingDB.GetClothingByID(ID, _context);
+
+            if (c == null)
+            {
+                // returns a HTTP 404 error - Not Found
+                return NotFound();
+            }
+
+            return View(c);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int ID)
+        {
+            Clothing c = await ClothingDB.GetClothingByID(ID, _context);
+
+            await ClothingDB.Delete(c, _context);
+            
+            TempData["Message"] = $"{c.Title} deleted successfully";
+
+            return RedirectToAction(nameof(InventoryList));
         }
     }
 }
