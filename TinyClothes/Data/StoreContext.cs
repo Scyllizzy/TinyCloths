@@ -16,5 +16,9 @@ namespace TinyClothes.Data
         // Add a DbSet for each entity that needs to be tracked by the DB
         // https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-3.1#create-the-database-context
         public DbSet<Clothing> Clothing { get; set; }
+        public DbSet<Account> Account { get; set; }
+
+        // Add-Migration (Put a name here)
+        // Update-Database
     }
 }
