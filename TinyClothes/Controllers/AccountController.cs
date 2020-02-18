@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TinyClothes.Data;
 using TinyClothes.Models;
@@ -40,7 +41,9 @@ namespace TinyClothes.Controllers
                     };
 
                     await AccountDB.Register(acc, _context);
-
+                    // Create user session
+                    HttpContext.Session.SetInt32("ID", acc.AccountID);
+                    HttpContext.Session.SetString("Username", acc.Username);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -50,6 +53,23 @@ namespace TinyClothes.Controllers
             }
 
             return View(reg);
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel log)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isMatch = await AccountDB.DoesUserMatch(log, _context);
+                // TODO: Create session
+                return RedirectToAction("Index", "Home");
+            }
+            return View(log);
         }
     }
 }
