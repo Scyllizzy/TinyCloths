@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,21 @@ namespace TinyClothes
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // Same as above
+            services.AddHttpContextAccessor();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".TinyClothes.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;
+                // Session cookie always gets created even if user does not accept cookie policy
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews();
 
             services.AddDbContext<StoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ClothesDB")));
@@ -46,7 +62,7 @@ namespace TinyClothes
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
