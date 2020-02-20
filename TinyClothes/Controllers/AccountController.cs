@@ -12,10 +12,12 @@ namespace TinyClothes.Controllers
     public class AccountController : Controller
     {
         private readonly StoreContext _context;
+        private readonly IHttpContextAccessor _http;
 
-        public AccountController(StoreContext context)
+        public AccountController(StoreContext context, IHttpContextAccessor http)
         {
             _context = context;
+            _http = http;
         }
 
         [HttpGet] // Remember, that is optional. HttpGet is the default
@@ -41,9 +43,9 @@ namespace TinyClothes.Controllers
                     };
 
                     await AccountDB.Register(acc, _context);
-                    // Create user session
-                    HttpContext.Session.SetInt32("ID", acc.AccountID);
-                    HttpContext.Session.SetString("Username", acc.Username);
+
+                    SessionHelper.CreateUserSession(acc.AccountID, acc.Username, _http);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -65,8 +67,8 @@ namespace TinyClothes.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isMatch = await AccountDB.DoesUserMatch(log, _context);
-                // TODO: Create session
+                Account acc = await AccountDB.DoesUserMatch(log, _context);
+                SessionHelper.CreateUserSession(acc.AccountID, acc.Username, _http);
                 return RedirectToAction("Index", "Home");
             }
             return View(log);
