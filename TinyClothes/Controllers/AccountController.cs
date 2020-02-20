@@ -73,5 +73,11 @@ namespace TinyClothes.Controllers
             }
             return View(log);
         }
-    }
+
+        public IActionResult Logout()
+        {
+            SessionHelper.DestroyUserSession(_http);
+            return RedirectToAction("Index", "Home");
+        }
+    } 
 }
