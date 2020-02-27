@@ -27,7 +27,7 @@ namespace TinyClothes.Controllers
         }
 
         // Add a single product to the shopping cart
-        public async Task<IActionResult> Add(int ID)
+        public async Task<IActionResult> Add(int ID, string prevUrl)
         {
             Clothing c = await ClothingDB.GetClothingByID(ID, _context);
 
@@ -36,7 +36,8 @@ namespace TinyClothes.Controllers
                 CartHelper.Add(c, _http);
             }
 
-            return RedirectToAction("Index", "Home");
+            // Use Redirect instead of RedirectToAction because prevUrl doesn't have an action tied to it
+            return Redirect(prevUrl); 
         }
 
         // Summary / checkout page
