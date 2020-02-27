@@ -7,9 +7,11 @@
     <title>@ViewData["Title"] - Tiny Clothes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css"/>
 </head>
 <body class="bg-dark text-light">
     <header>
+        <span class="fas fa-shopping-cart fa-2x">@CartHelper.GetItemCount(sessionInfo)</span>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TinyClothes</a>
