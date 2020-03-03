@@ -11,16 +11,15 @@
 </head>
 <body class="bg-dark text-light">
     <header>
-        <span class="fas fa-shopping-cart fa-2x">@CartHelper.GetItemCount(sessionInfo)</span>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TinyClothes</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <ul class="navbar-nav flex-grow-1 ml-auto">
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -30,6 +29,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Clothing" asp-action="InventoryList">Inventory</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
                         @if (!SessionHelper.IsUserLoggedIn(sessionInfo))
                         {
                             <li class="nav-item">
@@ -39,18 +40,21 @@
                                 <a class="btn btn-light nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                        else {
+                        else
+                        {
                             <li class="nav-item">
                                 <a class="btn btn-light nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
                         }
-                        
+                        <li class="nav-item">
+                            <span class="fas fa-shopping-cart fa-2x">@CartHelper.GetItemCount(sessionInfo)</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="margin-top: 4em">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
