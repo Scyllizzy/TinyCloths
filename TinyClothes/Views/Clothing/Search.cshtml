@@ -43,6 +43,15 @@
 </div>
 
 <div>
+    <ul>
+    @foreach (Clothing clothing in Model.Results)
+    {
+        <li>@clothing.Title : @clothing.Price</li>
+    }
+    </ul>
+</div>
+
+<div>
     <a asp-action="InventoryList">Back to List</a>
 </div>
 
