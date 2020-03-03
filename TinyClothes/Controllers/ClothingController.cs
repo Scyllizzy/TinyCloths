@@ -113,5 +113,10 @@ namespace TinyClothes.Controllers
 
             return RedirectToAction(nameof(InventoryList));
         }
+
+        public async Task<IActionResult> Search(SearchCriteria search)
+        {
+            return View();
+        }
     }
 }
