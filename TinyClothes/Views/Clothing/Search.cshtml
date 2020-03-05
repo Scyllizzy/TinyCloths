@@ -42,14 +42,21 @@
     </div>
 </div>
 
-<div>
-    <ul>
-    @foreach (Clothing clothing in Model.Results)
-    {
-        <li>@clothing.Title : @clothing.Price</li>
-    }
-    </ul>
-</div>
+@if (Model.Results.Count > 0)
+{
+    <div>
+        <ul>
+            @foreach (Clothing clothing in Model.Results)
+            {
+                <li>@clothing.Title : @clothing.Price</li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <h3>No results to display</h3>
+}
 
 <div>
     <a asp-action="InventoryList">Back to List</a>
