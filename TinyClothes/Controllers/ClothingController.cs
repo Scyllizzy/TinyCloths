@@ -116,22 +116,40 @@ namespace TinyClothes.Controllers
 
         public async Task<IActionResult> Search(SearchCriteria search)
         {
-            // Prepare Query
-            IQueryable<Clothing> allClothes = from c in _context.Clothing select c;
-
-            if (search.MinPrice.HasValue)
+            if (ModelState.IsValid)
             {
-                // Where price > minPrice
-                allClothes = from c in allClothes where c.Price >= search.MinPrice select c;
-            }
+                // Prepare Query
+                IQueryable<Clothing> allClothes = from c in _context.Clothing select c;
 
-            if (search.MaxPrice.HasValue)
-            {
-                // Where price < maxPrice
-                allClothes = from c in allClothes where c.Price <= search.MaxPrice select c;
-            }
+                if (search.MinPrice.HasValue)
+                {
+                    // Where price > minPrice
+                    allClothes = from c in allClothes where c.Price >= search.MinPrice select c;
+                }
 
-            search.Results = allClothes.ToList();
+                if (search.MaxPrice.HasValue)
+                {
+                    // Where price < maxPrice
+                    allClothes = from c in allClothes where c.Price <= search.MaxPrice select c;
+                }
+
+                if (!string.IsNullOrWhiteSpace(search.Size))
+                {
+                    allClothes = from c in allClothes where c.Size == search.Size select c;
+                }
+
+                if (!string.IsNullOrWhiteSpace(search.Type))
+                {
+                    allClothes = from c in allClothes where c.Type == search.Type select c;
+                }
+
+                if (!string.IsNullOrWhiteSpace(search.Title))
+                {
+                    allClothes = from c in allClothes where c.Title.Contains(search.Title) select c;
+                }
+
+                search.Results = allClothes.ToList();
+            }
 
             return View(search);
         }
