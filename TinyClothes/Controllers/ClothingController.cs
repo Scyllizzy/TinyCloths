@@ -118,40 +118,19 @@ namespace TinyClothes.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Prepare Query
-                IQueryable<Clothing> allClothes = from c in _context.Clothing select c;
-
-                if (search.MinPrice.HasValue)
+                if (search.IsBeingSearched())
                 {
-                    // Where price > minPrice
-                    allClothes = from c in allClothes where c.Price >= search.MinPrice select c;
+                    await ClothingDB.Search(search, _context);
+                    return View(search);
                 }
-
-                if (search.MaxPrice.HasValue)
+                else
                 {
-                    // Where price < maxPrice
-                    allClothes = from c in allClothes where c.Price <= search.MaxPrice select c;
+                    ModelState.AddModelError(string.Empty, "You must search by at least 1 criteria. Otherwise, why are you even here?");
+                    return View(search);
                 }
-
-                if (!string.IsNullOrWhiteSpace(search.Size))
-                {
-                    allClothes = from c in allClothes where c.Size == search.Size select c;
-                }
-
-                if (!string.IsNullOrWhiteSpace(search.Type))
-                {
-                    allClothes = from c in allClothes where c.Type == search.Type select c;
-                }
-
-                if (!string.IsNullOrWhiteSpace(search.Title))
-                {
-                    allClothes = from c in allClothes where c.Title.Contains(search.Title) select c;
-                }
-
-                search.Results = allClothes.ToList();
             }
 
-            return View(search);
+            return View();
         }
     }
 }
