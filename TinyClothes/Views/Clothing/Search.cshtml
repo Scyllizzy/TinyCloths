@@ -44,23 +44,12 @@
 
 @if (Model != null && Model.Results.Count > 0)
 {
-    <div>
-        <ul>
-            @foreach (Clothing clothing in Model.Results)
-            {
-                <li>@clothing.Title : @clothing.Price</li>
-            }
-        </ul>
-    </div>
+    @await Html.PartialAsync("_DisplayClothes", Model.Results);
 }
 else
 {
     <h3>No results to display</h3>
 }
-
-<div>
-    <a asp-action="InventoryList">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
