@@ -113,5 +113,24 @@ namespace TinyClothes.Controllers
 
             return RedirectToAction(nameof(InventoryList));
         }
+
+        public async Task<IActionResult> Search(SearchCriteria search)
+        {
+            if (ModelState.IsValid)
+            {
+                if (search.IsBeingSearched())
+                {
+                    await ClothingDB.Search(search, _context);
+                    return View(search);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "You must search by at least 1 criteria. Otherwise, why are you even here?");
+                    return View(search);
+                }
+            }
+
+            return View();
+        }
     }
 }

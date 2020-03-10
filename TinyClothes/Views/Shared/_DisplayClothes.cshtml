@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Clothing>
+@inject IHttpContextAccessor  http
+
+<table class="table text-light">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            @{
+                // Get current url path "/Clothing/InventoryList"
+                string prevUrl = http.HttpContext.Request.Path;
+                // Add query string "?page=2"
+                prevUrl += http.HttpContext.Request.QueryString.Value;
+            }
+        <td>
+            @if (SessionHelper.IsUserLoggedIn(http))
+            {
+                <a class="btn btn-light text-dark" asp-action="Edit" asp-route-id="@item.ItemID">Edit</a>
+                <a class="btn btn-danger text-light" asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
+            }
+            <a class="btn btn-success text-light" asp-action="Add" asp-controller="Cart" asp-route-id="@item.ItemID" asp-route-prevUrl="@prevUrl">Add to Cart</a>
+        </td>
+        </tr>
+        }
+    </tbody>
+</table>
