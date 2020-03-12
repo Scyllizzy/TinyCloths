@@ -65,7 +65,13 @@
                 <a class="btn btn-light text-dark" asp-action="Edit" asp-route-id="@item.ItemID">Edit</a>
                 <a class="btn btn-danger text-light" asp-action="Delete" asp-route-id="@item.ItemID">Delete</a>
             }
-            <a class="btn btn-success text-light" asp-action="Add" asp-controller="Cart" asp-route-id="@item.ItemID" asp-route-prevUrl="@prevUrl">Add to Cart</a>
+            <a class="btn btn-success text-light" 
+               data-cart-button
+               data-cart-itemid ="@item.ItemID"
+               asp-action="Add" 
+               asp-controller="Cart" 
+               asp-route-id="@item.ItemID" 
+               asp-route-prevUrl="@prevUrl">Add to Cart</a>
         </td>
         </tr>
         }

@@ -40,3 +40,22 @@
         }
     }
 </ul>
+
+@section Scripts {
+    <script>
+        $("*[data-cart-button]").click(
+            function(event) {
+                // Stop <a> from navigating
+                event.preventDefault();
+
+                // The add to cart button that was clicked
+                var currBtn = this;
+
+                var itemID = $(currBtn).attr("data-cart-itemid");
+
+                $.post("/Cart/AddJS", { id: itemID }).done(function() {
+
+                });
+            });
+    </script>
+}

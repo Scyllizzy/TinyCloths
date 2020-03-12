@@ -40,6 +40,11 @@ namespace TinyClothes.Controllers
             return Redirect(prevUrl); 
         }
 
+        public async void AddJS(int ID)
+        {
+
+        }
+
         // Summary / checkout page
         public IActionResult Checkout()
         {
