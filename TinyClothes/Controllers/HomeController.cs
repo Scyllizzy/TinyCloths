@@ -36,9 +36,16 @@ namespace TinyClothes.Controllers
 
         public IActionResult CustomError(string code)
         {
-            if (code == "404")
+            switch (code)
             {
-                ViewData["ErrorMsg"] = "Not Found";
+                case "404":
+                    //return View("Not Found"); <- a different way to do it
+                    ViewData["ErrorMsg"] = "Not Found";
+                    break;
+
+                case "400":
+                    ViewData["ErrorMsg"] = "I SEE YOU.";
+                    break;
             }
 
             return View();
