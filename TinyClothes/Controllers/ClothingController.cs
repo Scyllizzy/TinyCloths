@@ -61,10 +61,15 @@ namespace TinyClothes.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int ID)
+        public async Task<IActionResult> Edit(int? ID)
         {
+            if(ID == null)
+            {
+                // HTTP 400
+                return BadRequest();
+            }
             
-            Clothing c = await ClothingDB.GetClothingByID(ID, _context);
+            Clothing c = await ClothingDB.GetClothingByID(ID.Value, _context); // .Value can extract data out of a nullable data type
 
             if (c == null) // Clothing not in DB
             {
